@@ -1,0 +1,1 @@
+# qa_guru_echechelev_hw12_jenkins_ui_test
