@@ -1,3 +1,4 @@
+import allure
 from selene.support.shared import browser
 from selene import browser, have
 from pages.practice_form import FormPage
@@ -6,24 +7,24 @@ from pages.users import User
 
 # Тест без использования POM
 def test_inputs_form_without_using_pom():
-	# Открываем страницу ввода
-	browser.open('https://practice.expandtesting.com/inputs')
+	with allure.step('Открываем страницу сайта'):
+		browser.open('https://practice.expandtesting.com/inputs')
 
-	# Заполняем поля
-	browser.element("#input-number").type(89500000000)
-	browser.element("#input-text").type('Evgeniy Chechelev')
-	browser.element("#input-password").type('0000')
-	browser.driver.execute_script(
-		"arguments[0].value = '1988-10-06';",
-		browser.element('#input-date').locate()
-	)
-	browser.element("#btn-display-inputs").click()
+	with allure.step('Заполняем поля'):
+		browser.element("#input-number").type(89500000000)
+		browser.element("#input-text").type('Evgeniy Chechelev')
+		browser.element("#input-password").type('0000')
+		browser.driver.execute_script(
+			"arguments[0].value = '1988-10-06';",
+			browser.element('#input-date').locate()
+		)
+		browser.element("#btn-display-inputs").click()
 
-	# Проверяем поля
-	browser.element('#output-number').should(have.text('89500000000'))
-	browser.element('#output-text').should(have.text('Evgeniy Chechelev'))
-	browser.element('#output-password').should(have.text('0000'))
-	browser.element('#output-date').should(have.text('1988-10-06'))
+	with allure.step('Проверяем заполненые поля'):
+		browser.element('#output-number').should(have.text('89500000000'))
+		browser.element('#output-text').should(have.text('Evgeniy Chechelev'))
+		browser.element('#output-password').should(have.text('0000'))
+		browser.element('#output-date').should(have.text('1988-10-06'))
 
 
 # Тест c использованием POM
