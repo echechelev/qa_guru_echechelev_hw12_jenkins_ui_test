@@ -1,3 +1,4 @@
+import allure
 from selene import browser, be, have
 from pages.users import User
 
@@ -64,29 +65,29 @@ class FormPage:
 
 	# 5 Методы
 
-	# Открываем сайт, проверяем URL, ждем что поле "Номер" появилось на странице
+	@allure.step("Открываем сайт")
 	def open(self):
 		browser.open(self.URL)
 		browser.should(have.url_containing(self.URL))
 		self.field_number.should(be.visible)
 		return self
 
-	# Вводим номер
+	@allure.step("Заполняем поле Номер")
 	def fill_number(self, number):
 		self.field_number.type(number)
 		return self
 
-	# Вводим текст
+	@allure.step("Заполняем поле Текст")
 	def fill_text(self, text):
 		self.field_text.type(text)
 		return self
 
-	# Вводим пароль
+	@allure.step("Заполняем поле Пароль")
 	def fill_password(self, password):
 		self.field_password.type(password)
 		return self
 
-	# Вводим дату
+	@allure.step("Заполняем поле Дата")
 	def fill_date(self, date_str: str):
 		browser.driver.execute_script(
 			"arguments[0].value = arguments[1];",
@@ -95,17 +96,17 @@ class FormPage:
 		)
 		return self
 
-	# Жмем кнопку "display inputs"
+	@allure.step("Жмем кнопку Display")
 	def click_display_inputs(self):
 		self.btn_display_inputs.click()
 		return self
 
-	# Жмем кнопку "clear inputs"
+	@allure.step("Жмем кнопку Clear inputs")
 	def click_clear_inputs(self):
 		self.btn_clear_inputs.click()
 		return self
 
-	# Проверяем заполненные поля
+	@allure.step("Проверяем заполненные поля")
 	def should_display_outputs(self, number=None, text=None, password=None, date=None):
 		from selene import have
 
@@ -120,8 +121,7 @@ class FormPage:
 
 		return self
 
-	# Проверяем что все поля очищены
-
+	@allure.step("Проверяем что все поля очищены")
 	def should_be_empty(self):
 
 		self.field_number.should(have.value(''))
@@ -131,7 +131,7 @@ class FormPage:
 
 		return self
 
-	# Метод для заполнения high-level
+	@allure.step("Заполняем поля на форме")
 	def register(self, user: 'User'):
 		self.fill_number(user.phone)
 		self.fill_text(user.name)
@@ -140,7 +140,7 @@ class FormPage:
 		self.click_display_inputs()
 		return self
 
-	# Метод для проверки high-level
+	@allure.step("Проверяем заполненные поля")
 	def should_have_registered(self, user: 'User'):
 		return self.should_display_outputs(
 			number=user.phone,
