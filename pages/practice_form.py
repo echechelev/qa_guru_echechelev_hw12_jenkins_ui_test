@@ -1,13 +1,10 @@
-from datetime import date
-
 from selene import browser, be, have
-
 from pages.users import User
 
 
 class FormPage:
 	# 1 Константы
-	URL = '/inputs'
+	URL = 'https://practice.expandtesting.com/inputs'
 
 	# 2 Поля для заполнения
 
@@ -134,7 +131,7 @@ class FormPage:
 
 		return self
 
-	# Метод для заполнения high
+	# Метод для заполнения high-level
 	def register(self, user: 'User'):
 		self.fill_number(user.phone)
 		self.fill_text(user.name)
@@ -143,7 +140,7 @@ class FormPage:
 		self.click_display_inputs()
 		return self
 
-	# Метод для проверки high
+	# Метод для проверки high-level
 	def should_have_registered(self, user: 'User'):
 		return self.should_display_outputs(
 			number=user.phone,
@@ -151,5 +148,3 @@ class FormPage:
 			password=user.password,
 			date=user.date
 		)
-
-

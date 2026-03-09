@@ -4,25 +4,10 @@ from pages.practice_form import FormPage
 from pages.users import User
 
 
-def test_register_user():
-	evgeniy = User(
-		phone='89500000000',
-		name='Evgeniy Chechelev',
-		password='0000',
-		date='1988-06-10'
-	)
-	form = FormPage()
-	form.open() \
-		.register(evgeniy) \
-		.should_have_registered(evgeniy) \
-		.click_clear_inputs() \
-		.should_be_empty()
-
-
 # Тест без использования POM
-def test_inputs_form():
+def test_inputs_form_without_using_pom():
 	# Открываем страницу ввода
-	browser.open('/inputs')
+	browser.open('https://practice.expandtesting.com/inputs')
 
 	# Заполняем поля
 	browser.element("#input-number").type(89500000000)
@@ -64,3 +49,18 @@ def test_inputs_form_with_pom():
 
 	# Проверяем что все поля очищены
 	f.should_be_empty()
+
+
+def test_inputs_form_with_high_level_method():
+	evgeniy = User(
+		phone='89500000000',
+		name='Evgeniy Chechelev',
+		password='0000',
+		date='1988-06-10'
+	)
+	form = FormPage()
+	form.open() \
+		.register(evgeniy) \
+		.should_have_registered(evgeniy) \
+		.click_clear_inputs() \
+		.should_be_empty()
